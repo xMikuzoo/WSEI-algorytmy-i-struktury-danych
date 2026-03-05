@@ -1,3 +1,13 @@
-﻿// See https://aka.ms/new-console-template for more information
+﻿using BenchmarkDotNet.Running;
 
-Console.WriteLine("Hello, World!");
+namespace algorytmy_i_struktury_danych
+{
+    class Program 
+    {
+        static void Main(string[] args)
+        {
+            var summary = BenchmarkRunner.Run<ArraySortingBenchmark>();
+            Console.WriteLine(summary); 
+        }
+    }
+}
