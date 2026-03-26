@@ -5,6 +5,7 @@ public static class Program
     {
         var head = CreateSingleLinkedList<int>(new int[] {1, 2, 3, 4} );
         PrintSingleLinkedList<int>(head);
+        PrintSingleLinkedList<int>(ReverseSingleLinkedList<int>(head));
     }
 
     public static void PrintSingleLinkedList<T>(Node<T> head)
@@ -49,5 +50,19 @@ public static class Program
             current = current.Next;
         }
         return head;
+    }
+
+    public static Node<T> ReverseSingleLinkedList<T>(Node<T> head)
+    {
+        var current = head;
+        Node<T> previous = null;
+        while (current != null)
+        {
+            var next = current.Next;
+            current.Next = previous;
+            previous = current;
+            current = next;
+        }
+        return previous;
     }
 }
