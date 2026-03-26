@@ -3,11 +3,12 @@ public static class Program
 {
     public static void Main()
     {
-        Node<int> head1 = 
+        Node<int> head = 
             new Node<int>(2,
                 new Node<int>(5,
                     new Node<int>(1)));
-        PrintSingleLinkedList<int>(head1);
+        AddAtEndOfSingleLinkedList<int>( -1, ref head);
+        PrintSingleLinkedList<int>(head);
     }
 
     public static void PrintSingleLinkedList<T>(Node<T> head)
@@ -20,5 +21,21 @@ public static class Program
             current = current.Next;
         }
         Console.WriteLine("null");
+    }
+
+    public static void AddAtEndOfSingleLinkedList<T>(T element, ref Node<T> head)
+    {
+        if (head == null)
+        {
+            head = new Node<T>(element);
+            return;
+        }
+        
+        var current = head;
+        while (current.Next != null)
+        {
+            current = current.Next;
+        }
+        current.Next = new Node<T>(element);
     }
 }
