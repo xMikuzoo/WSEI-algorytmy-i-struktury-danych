@@ -3,11 +3,7 @@ public static class Program
 {
     public static void Main()
     {
-        Node<int> head = 
-            new Node<int>(2,
-                new Node<int>(5,
-                    new Node<int>(1)));
-        AddAtEndOfSingleLinkedList<int>( -1, ref head);
+        var head = CreateSingleLinkedList<int>(new int[] {1, 2, 3, 4} );
         PrintSingleLinkedList<int>(head);
     }
 
@@ -37,5 +33,21 @@ public static class Program
             current = current.Next;
         }
         current.Next = new Node<T>(element);
+    }
+
+    public static Node<T> CreateSingleLinkedList<T>(params T[] arr)
+    {
+        if (arr == null || arr.Length == 0)
+        {
+            return null;
+        }
+        var head = new Node<T>(arr[0]);
+        var current = head;
+        for (int i = 1; i < arr.Length; i++)
+        {
+            current.Next = new Node<T>(arr[i]);
+            current = current.Next;
+        }
+        return head;
     }
 }
