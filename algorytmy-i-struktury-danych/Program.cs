@@ -5,7 +5,7 @@ public static class Program
     {
         var head = CreateSingleLinkedList<int>(1, 1, 2, 2, 2, 5, 6);
         PrintSingleLinkedList<int>(head);
-        RemoveAllDuplicatesFromSortedLinkedList<int>(ref head);
+        DistinctElementsInLinkedList<int>(ref head);
         PrintSingleLinkedList<int>(head);
     }
 
@@ -149,5 +149,32 @@ public static class Program
         }
 
         head = temp.Next;
+    }
+    
+    public static void DistinctElementsInLinkedList<T>(ref Node<T> head)
+        where T : IEquatable<T>, IComparable<T>
+    {
+        if (head == null)
+        {
+            return;
+        }
+
+        var current = head;
+        while (current != null)
+        {
+            var runner = current;
+            while (runner.Next != null)
+            {
+                if (current.Data.Equals(runner.Next.Data))
+                {
+                    runner.Next = runner.Next.Next;
+                }
+                else
+                {
+                    runner = runner.Next;
+                }
+            }
+            current = current.Next;
+        }
     }
 }
