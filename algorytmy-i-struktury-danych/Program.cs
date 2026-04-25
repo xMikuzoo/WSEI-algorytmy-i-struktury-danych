@@ -1,11 +1,13 @@
 ﻿using System;
+using System.Diagnostics;
+using algorytmy_i_struktury_danych;
 
 class Program
 {
     const int N = 101;
     const int MAX_PROBES = 20;
 
-    static string[] table = new string[N];
+    static string?[] table = new string?[N];
     static bool[] deleted = new bool[N];
 
     static int Hash(string key)
@@ -84,24 +86,47 @@ class Program
 
     static void Main()
     {
-        int n = int.Parse(Console.ReadLine().Trim());
-        for (int i = 0; i < n; i++)
-        {
-            string line = Console.ReadLine();
-            if (line == null) break;
-            int colon = line.IndexOf(':');
-            if (colon < 0) continue;
-            string op = line.Substring(0, colon);
-            string key = line.Substring(colon + 1);
-            if (op == "INSERT") Insert(key);
-            else if (op == "DELETE") Delete(key);
-        }
+        // int n = int.Parse(Console.ReadLine().Trim());
+        // for (int i = 0; i < n; i++)
+        // {
+        //     string line = Console.ReadLine();
+        //     if (line == null) break;
+        //     int colon = line.IndexOf(':');
+        //     if (colon < 0) continue;
+        //     string op = line.Substring(0, colon);
+        //     string key = line.Substring(colon + 1);
+        //     if (op == "INSERT") Insert(key);
+        //     else if (op == "DELETE") Delete(key);
+        // }
+        //
+        // int count = 0;
+        // for (int i = 0; i < N; i++) if (table[i] != null) count++;
+        // Console.WriteLine(count);
+        // for (int i = 0; i < N; i++)
+        //     if (table[i] != null)
+        //         Console.WriteLine(i + ":" + table[i]);
+        
+        var hashTable = new HashTable(5);
+        hashTable.Add("123");
+        hashTable.Add("456");
+        hashTable.Add("321");
+        hashTable.Add("234");
+        hashTable.Add("123");
+        hashTable.Add("00569");
+        Console.WriteLine( string.Join(", ", hashTable.GetPhoneNumbers(0)) );
+        Console.WriteLine( string.Join(", ", hashTable.GetPhoneNumbers(1)) );
+        Console.WriteLine( string.Join(", ", hashTable.GetPhoneNumbers(2)) );
 
-        int count = 0;
-        for (int i = 0; i < N; i++) if (table[i] != null) count++;
-        Console.WriteLine(count);
-        for (int i = 0; i < N; i++)
-            if (table[i] != null)
-                Console.WriteLine(i + ":" + table[i]);
+        int index;
+        Debug.Assert(hashTable.Contains("123", out index) == true);
+        Debug.Assert(index == 0);
+
+        Console.WriteLine(hashTable.Dump());
+
+        hashTable.Remove("123");
+        Console.WriteLine(hashTable.Dump());
+
+        hashTable.Remove("321");
+        Console.WriteLine(hashTable.Dump());
     }
 }
