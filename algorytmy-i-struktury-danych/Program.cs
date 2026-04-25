@@ -5,7 +5,13 @@ public class Program
 {
     public static void Main()
     {
-        //1
+        // Solve1();   // //1 - najdłuższy ściśle rosnący spójny fragment
+        Solve2();      // //2 - min. usunięć by reszta była niemalejąca
+    }
+
+    //1
+    static void Solve1()
+    {
         int n = ReadInt();
         if (n <= 0) { Console.WriteLine(0); return; }
 
@@ -31,7 +37,32 @@ public class Program
         Console.WriteLine(best);
     }
 
-    //1
+    //2
+    static void Solve2()
+    {
+        int n = ReadInt();
+        if (n <= 0) { Console.WriteLine(0); return; }
+
+        int[] tails = new int[n];
+        int size = 0;
+
+        for (int i = 0; i < n; i++)
+        {
+            int x = ReadInt();
+            int lo = 0, hi = size;
+            while (lo < hi)
+            {
+                int mid = (lo + hi) >> 1;
+                if (tails[mid] <= x) lo = mid + 1;
+                else hi = mid;
+            }
+            tails[lo] = x;
+            if (lo == size) size++;
+        }
+
+        Console.WriteLine(n - size);
+    }
+
     static int ReadInt()
     {
         int c, sign = 1, val = 0;
